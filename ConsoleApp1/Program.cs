@@ -14,7 +14,7 @@ namespace ConsoleApp1
         {
             int inputType=1;
             bool ok = false;
-            HashAlgorithm alg = HashAlgorithm.Create();
+            HashAlgorithm alg = null;
             Console.WriteLine("Select the input type:\n\t1. string\n\t2. byte[]\n\t3. file path");
             while (!ok)
             {
@@ -30,7 +30,6 @@ namespace ConsoleApp1
                 else
                     Console.WriteLine("Type in a number between 1 and 3");
             }
-            ok = false;
             string aux = "";
             switch (inputType)
             {
@@ -52,18 +51,16 @@ namespace ConsoleApp1
             Console.WriteLine("Type in a {0}", aux);
             string input = Console.ReadLine();
 
+            ok = false;
             Console.WriteLine("Type in a hash algorithm");
-            while (!ok)
+            while (alg is null)
             {
-                try
-                {
-                    alg = HashAlgorithm.Create(Console.ReadLine());
-                    ok = true;
-                }
-                catch (Exception)
+
+                alg = HashAlgorithm.Create(Console.ReadLine());
+                ok = true;
+                if (alg is null)
                 {
                     Console.WriteLine("Not a valid hash algorithm");
-                    ok = false;
                 }
             }
 
